@@ -22,7 +22,7 @@
 
         <init-param>
             <param-name>contextConfigLocation</param-name>
-             <!--默认加载的文件 /WEB-INF/dispatcher-servlet.xml 可以更改 -->
+            <!--默认加载的文件 /WEB-INF/dispatcher-servlet.xml 可以更改 -->
             <param-value>classpath:dispatcher-servlet.xml</param-value>
         </init-param>
 
@@ -31,6 +31,23 @@
 
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
+
+        <!--
+        后面的加载的配置会覆盖前面加载的配置
+
+        如果 url-pattern 为 / , 会覆盖掉 conf/web.xml中配置的default的servlet
+
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>/</url-pattern>
+        </servlet-mapping>
+
+        导致无法访问静态资源, 如 spring.html
+
+        可以在beans中, 配置下面标签, 支持对静态资源的处理
+        <mvc:default-servlet-handler/>
+
+        -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

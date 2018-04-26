@@ -1,6 +1,7 @@
 package com.bing.lan.springMvc;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by 蓝兵 on 2018/4/26.
  */
 
-public class HelloMvcController implements org.springframework.web.servlet.mvc.Controller {
+public class HelloMvcController implements Controller {
 
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
     <bean name="/hello" class="com.bing.lan.springMvc.HelloMvcController"/>
 
     <!-- 用注解方式 不需要  配置 name -->
-    <bean class="com.bing.lan.springMvc.AnnotationController"/>
+    <!--<bean class="com.bing.lan.springMvc.AnnotationController"/>-->
+
+    <!-- 开启注解扫描 -->
+    <context:component-scan base-package="com.bing.lan.springMvc"/>
+    <!-- 添加对springMvc支持 -->
+    <!--<mvc:annotation-driven/>-->
+    <!-- 支持对静态资源的处理 -->
+    <mvc:default-servlet-handler/>
+
 
 </beans>
