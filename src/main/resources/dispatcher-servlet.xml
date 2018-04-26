@@ -7,4 +7,7 @@
 
     <bean name="/hello" class="com.bing.lan.springMvc.HelloMvcController"/>
 
+    <!-- 用注解方式 不需要  配置 name -->
+    <bean class="com.bing.lan.springMvc.AnnotationController"/>
+
 </beans>
