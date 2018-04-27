@@ -15,7 +15,6 @@
       <root url="jar://$PROJECT_DIR$/lib/spring-oxm-4.3.16.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-messaging-4.3.16.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-core-4.3.16.RELEASE.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-tx-4.3.16.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/aopalliance-1.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-orm-4.3.16.RELEASE.jar!/" />
