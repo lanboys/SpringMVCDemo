@@ -26,7 +26,7 @@ public class DataController {
 
         //原始 传值方式
         request.setAttribute("key", "data");
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/views/dataTest.jsp");
+        ModelAndView modelAndView = new ModelAndView("forward:/WEB-INF/views/dataTest.jsp");
 
         return modelAndView;
     }
@@ -35,7 +35,7 @@ public class DataController {
     public ModelAndView data1(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("data1() : ");
 
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/views/dataTest.jsp");
+        ModelAndView modelAndView = new ModelAndView("forward:/WEB-INF/views/dataTest.jsp");
         modelAndView.addObject("key", "data1");
 
         return modelAndView;
@@ -48,7 +48,7 @@ public class DataController {
     public ModelAndView data2(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("data2() : ");
 
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/views/dataTest.jsp");
+        ModelAndView modelAndView = new ModelAndView("forward:/WEB-INF/views/dataTest.jsp");
         modelAndView.addObject("key", "data2");
         modelAndView.addObject("测试无key传值 默认的key为 数据类型全小写 string");
         modelAndView.addObject(new Date());

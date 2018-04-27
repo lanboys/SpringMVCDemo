@@ -31,7 +31,7 @@ public class AnnotationController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("key", "method1");
-        modelAndView.setViewName("WEB-INF/views/springMvc.jsp");
+        modelAndView.setViewName("forward:/WEB-INF/views/springMvc.jsp");
 
         return modelAndView;
     }
@@ -42,7 +42,7 @@ public class AnnotationController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("key", "method2");
-        modelAndView.setViewName("WEB-INF/views/springMvc.jsp");
+        modelAndView.setViewName("forward:/WEB-INF/views/springMvc.jsp");
         return modelAndView;
     }
 }

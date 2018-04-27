@@ -19,7 +19,7 @@ public class HelloMvcController implements Controller {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("key", "Hello SpringMvc");
-        modelAndView.setViewName("WEB-INF/views/springMvc.jsp");
+        modelAndView.setViewName("forward:/WEB-INF/views/springMvc.jsp");
         return modelAndView;
     }
 }
