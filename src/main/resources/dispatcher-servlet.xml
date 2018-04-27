@@ -39,4 +39,13 @@
         <property name="maxUploadSize" value="11048576"/>
     </bean>
 
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean class="com.bing.lan.springMvc._05_interceptor.MyHandlerInterceptor"/>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
 </beans>
