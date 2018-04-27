@@ -3,13 +3,19 @@ package com.bing.lan.springMvc._04_file;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.UUID;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by 蓝兵 on 2018/4/27.
@@ -40,23 +46,10 @@ public class FileController {
             String lastName = multipartFile.getOriginalFilename().split("\\.")[1];
             String fileName = uuid + "." + lastName;
 
-            try {
-                InputStream inputStream = multipartFile.getInputStream();
-                FileOutputStream fileOutputStream = new FileOutputStream(new File(dir, fileName));
+            InputStream inputStream = multipartFile.getInputStream();
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(dir, fileName));
 
-                byte[] buffer = new byte[4096];
-                int n;
-                long count = 0L;
-                while (-1 != (n = inputStream.read(buffer))) {
-                    fileOutputStream.write(buffer, 0, n);
-                    count += (long) n;
-                }
-
-                System.out.println("uploadFile() count: " + count);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            copy(inputStream, fileOutputStream);
 
             model.addAttribute("uploadResultMsg", "上传成功, 继续上传");
         } else {
@@ -64,5 +57,33 @@ public class FileController {
         }
 
         return "forward:/upload.jsp";
+    }
+
+    private void copy(InputStream inputStream, OutputStream outputStream) {
+        try {
+
+            byte[] buffer = new byte[4096];
+            int n;
+            long count = 0L;
+            while (-1 != (n = inputStream.read(buffer))) {
+                outputStream.write(buffer, 0, n);
+                count += (long) n;
+            }
+
+            System.out.println("copy() count: " + count);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/downloadFile")
+    @ResponseBody//不加这个注解貌似也可以
+    public void downloadFile(HttpServletResponse response) throws IOException {
+        File file = new File("E:\\workspace\\IDEA_workspace\\SpringMVCDemo\\file\\9d5512e9-3c3b-4f17-baec-0e565c521698.jpg");
+        FileInputStream fileInputStream;
+        fileInputStream = new FileInputStream(file);
+        response.setHeader("Content-Disposition", "attachment;filename=a.jpg");
+        ServletOutputStream outputStream = response.getOutputStream();
+        copy(fileInputStream, outputStream);
     }
 }
