@@ -1,4 +1,4 @@
-package com.bing.lan.springMvc;
+package com.bing.lan.springMvc._01_implement;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -19,7 +19,7 @@ public class HelloMvcController implements Controller {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("key", "Hello SpringMvc");
-        modelAndView.setViewName("springMvc.jsp");
+        modelAndView.setViewName("WEB-INF/views/springMvc.jsp");
         return modelAndView;
     }
 }

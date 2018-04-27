@@ -1,4 +1,4 @@
-package com.bing.lan.springMvc;
+package com.bing.lan.springMvc._02_anntation;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class AnnotationController {
 
+    /**
+     * RequestMapping 映射路径
+     */
     @RequestMapping("/method1")
-    public ModelAndView method1(HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    public ModelAndView method1(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("method1() : ");
         Map<String, String[]> parameterMap = request.getParameterMap();
         for (Map.Entry<String, String[]> stringEntry : parameterMap.entrySet()) {
@@ -29,19 +31,18 @@ public class AnnotationController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("key", "method1");
-        modelAndView.setViewName("springMvc.jsp");
+        modelAndView.setViewName("WEB-INF/views/springMvc.jsp");
 
         return modelAndView;
     }
 
     @RequestMapping("/method2")
-    public ModelAndView method2(HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    public ModelAndView method2(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("method2() : ");
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("key", "method2");
-        modelAndView.setViewName("springMvc.jsp");
+        modelAndView.setViewName("WEB-INF/views/springMvc.jsp");
         return modelAndView;
     }
 }
