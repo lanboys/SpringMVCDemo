@@ -6,7 +6,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
     <bean name="/hello" class="com.bing.lan.springMvc.HelloMvcController"/>
@@ -17,7 +19,7 @@
     <!-- 开启注解扫描 -->
     <context:component-scan base-package="com.bing.lan.springMvc"/>
     <!-- 添加对springMvc支持 -->
-    <!--<mvc:annotation-driven/>-->
+    <mvc:annotation-driven/>
     <!-- 支持对静态资源的处理 -->
     <mvc:default-servlet-handler/>
 

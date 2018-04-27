@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +21,16 @@ public class AnnotationController {
     public ModelAndView method1(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         System.out.println("method1() : ");
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        for (Map.Entry<String, String[]> stringEntry : parameterMap.entrySet()) {
+            System.out.println("method1(): " + stringEntry.getKey());
+            System.out.println("method1(): " + Arrays.toString(stringEntry.getValue()));
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("key", "method1");
         modelAndView.setViewName("springMvc.jsp");
+
         return modelAndView;
     }
 
