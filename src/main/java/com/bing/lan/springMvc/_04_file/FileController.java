@@ -77,11 +77,12 @@ public class FileController {
     }
 
     @RequestMapping("/downloadFile")
-    @ResponseBody//不加这个注解貌似也可以
+    @ResponseBody
     public void downloadFile(HttpServletResponse response) throws IOException {
-        File file = new File("E:\\workspace\\IDEA_workspace\\SpringMVCDemo\\file\\9d5512e9-3c3b-4f17-baec-0e565c521698.jpg");
+        File file = new File("E:\\workspace\\IDEA_workspace\\SpringMVCDemo\\file\\8c0e7f73-0ea3-4118-9eec-cf2f4e15c740.jpg");
         FileInputStream fileInputStream;
         fileInputStream = new FileInputStream(file);
+        // 直接下载 或者弹下载窗口  否则会直接显示在浏览器中
         response.setHeader("Content-Disposition", "attachment;filename=a.jpg");
         ServletOutputStream outputStream = response.getOutputStream();
         copy(fileInputStream, outputStream);

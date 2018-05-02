@@ -64,6 +64,7 @@ public class DataController {
     @RequestMapping("/data3")
     @ModelAttribute("myUser")
     public User data3() {
+    //public void data3() {
         System.out.println("data3() : ");
         return new User("xiaohong data3", 18);
     }

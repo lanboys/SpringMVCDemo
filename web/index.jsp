@@ -15,6 +15,8 @@
 <a href="${pageContext.request.contextPath}/hello">SpringMVC, I'm coming! </a><br>
 <a href="${pageContext.request.contextPath}/upload.jsp">上传文件 </a><br>
 <a href="${pageContext.request.contextPath}/downloadFile">下载文件 </a><br>
+<a href="${pageContext.request.contextPath}/annotation.jsp">Mvc注解测试 </a><br>
+
 
 
 </body>
