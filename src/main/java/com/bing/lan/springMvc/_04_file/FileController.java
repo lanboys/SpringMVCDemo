@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,9 +13,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -25,43 +28,46 @@ import javax.servlet.http.HttpServletResponse;
 public class FileController {
 
     @RequestMapping("/uploadFile")
-    public String uploadFile(MultipartFile multipartFile, Model model) throws IOException {
+    public String uploadFile(HttpServletRequest request, Model model) throws IOException {
         // multipartFile 名字要与表单中一致 否则需要用注解
 
         System.out.println("upload(): ");
+        MultipartHttpServletRequest defaultMultipartActionRequest = (MultipartHttpServletRequest) request;
+        Map<String, MultipartFile> fileMap = defaultMultipartActionRequest.getFileMap();
+        for (String key : fileMap.keySet()) {
+            MultipartFile multipartFile = fileMap.get(key);
+            if (multipartFile != null) {
+                String contentType = multipartFile.getContentType();
+                String name = multipartFile.getName();
+                String originalFilename = multipartFile.getOriginalFilename();
+                long size = multipartFile.getSize();
 
-        if (multipartFile != null) {
-            String contentType = multipartFile.getContentType();
-            String name = multipartFile.getName();
-            String originalFilename = multipartFile.getOriginalFilename();
-            long size = multipartFile.getSize();
+                System.out.println("upload() contentType: " + contentType);
+                System.out.println("upload() name: " + name);
+                System.out.println("upload() originalFilename: " + originalFilename);
+                System.out.println("upload() size: " + size);
 
-            System.out.println("upload() contentType: " + contentType);
-            System.out.println("upload() name: " + name);
-            System.out.println("upload() originalFilename: " + originalFilename);
-            System.out.println("upload() size: " + size);
+                String dir = "E:\\workspace\\IDEA_workspace\\SpringMVCDemo\\file";
+                String uuid = UUID.randomUUID().toString();
+                String lastName = "jpg";
+                String[] split = originalFilename.split("\\.");
+                if (split.length >= 2) {
+                    lastName = split[1];
+                }
+                String fileName = uuid + "." + lastName;
+                InputStream inputStream = multipartFile.getInputStream();
+                FileOutputStream fileOutputStream = new FileOutputStream(new File(dir, fileName));
 
-            String dir = "E:\\workspace\\IDEA_workspace\\SpringMVCDemo\\file";
-            String uuid = UUID.randomUUID().toString();
-            String lastName = multipartFile.getOriginalFilename().split("\\.")[1];
-            String fileName = uuid + "." + lastName;
-
-            InputStream inputStream = multipartFile.getInputStream();
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(dir, fileName));
-
-            copy(inputStream, fileOutputStream);
-
-            model.addAttribute("uploadResultMsg", "上传成功, 继续上传");
-        } else {
-            model.addAttribute("uploadResultMsg", "请选择文件后再上传");
+                copy(inputStream, fileOutputStream);
+            }
         }
 
+        model.addAttribute("uploadResultMsg", "上传成功, 继续上传");
         return "forward:/upload.jsp";
     }
 
     private void copy(InputStream inputStream, OutputStream outputStream) {
         try {
-
             byte[] buffer = new byte[4096];
             int n;
             long count = 0L;
@@ -69,10 +75,24 @@ public class FileController {
                 outputStream.write(buffer, 0, n);
                 count += (long) n;
             }
-
             System.out.println("copy() count: " + count);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Exception: " + e);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    System.out.println("Exception: " + e);
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    System.out.println("Exception: " + e);
+                }
+            }
         }
     }
 

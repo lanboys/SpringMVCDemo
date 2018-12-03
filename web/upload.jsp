@@ -21,7 +21,8 @@
     <form action="${pageContext.request.contextPath}/uploadFile" method="post"
           enctype="multipart/form-data">
 
-        <input type="file" name="multipartFile"/>
+        <input type="file" name="multipartFile1"/>
+        <input type="file" name="multipartFile2"/>
         <input type="submit" name="submitFile" value="点击上传" />
     </form>
 

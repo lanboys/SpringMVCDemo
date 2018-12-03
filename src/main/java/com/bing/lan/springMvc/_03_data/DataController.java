@@ -26,6 +26,7 @@ public class DataController {
 
         //原始 传值方式
         request.setAttribute("key", "data");
+        // 默认就是请求转发  forward
         ModelAndView modelAndView = new ModelAndView("forward:/WEB-INF/views/dataTest.jsp");
 
         return modelAndView;
@@ -58,13 +59,15 @@ public class DataController {
     }
 
     /**
+     * 默认就是请求转发  forward
+     *
      * /WEB-INF/views/data3.jsp
      * 响应的视图  前缀(/WEB-INF/views/) + 请求路径(data3) + 后缀(.jsp)
      */
     @RequestMapping("/data3")
     @ModelAttribute("myUser")
     public User data3() {
-    //public void data3() {
+        //public void data3() {
         System.out.println("data3() : ");
         return new User("xiaohong data3", 18);
     }
