@@ -1,5 +1,6 @@
 package com.bing.lan.springMvc._04_file;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -28,7 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 public class FileController {
 
     @RequestMapping("/uploadFile")
-    public String uploadFile(HttpServletRequest request, Model model) throws IOException {
+    @ResponseBody
+    public Object uploadFile(HttpServletRequest request, Model model) throws IOException {
         // multipartFile 名字要与表单中一致 否则需要用注解
 
         System.out.println("upload(): ");
@@ -63,7 +66,19 @@ public class FileController {
         }
 
         model.addAttribute("uploadResultMsg", "上传成功, 继续上传");
-        return "forward:/upload.jsp";
+
+        Map<String, String> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.put("state", "SUCCESS");
+        objectObjectHashMap.put("original", "23223322.png");
+        objectObjectHashMap.put("size", "1111");
+        objectObjectHashMap.put("title", "1545817198979026059.png");
+        objectObjectHashMap.put("type", ".png");
+        objectObjectHashMap.put("url", "/jsp/upload/image/20181226/1545820197639025370.png");
+
+        JSONObject jsonObject = new JSONObject(objectObjectHashMap);
+
+        return jsonObject.toString();
+        //return "forward:/upload.jsp";
     }
 
     private void copy(InputStream inputStream, OutputStream outputStream) {
