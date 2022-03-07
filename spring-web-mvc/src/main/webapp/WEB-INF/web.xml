@@ -5,20 +5,32 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <listener>
+        <!-- tomcat 在初始化 ServletContext 的时候会回调监听器 ，这时候会加载全局 spring 容器-->
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextClass</param-name>
+        <!-- 自定义ServletContext中的 spring 容器上下文 Root WebApplicationContext -->
+        <!-- 默认是 org.springframework.web.context.support.XmlWebApplicationContext 定义在文件 ContextLoader.properties -->
+        <param-value>org.springframework.web.context.support.XmlWebApplicationContext</param-value>
+    </context-param>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
-
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <init-param>
+            <param-name>contextClass</param-name>
+            <!-- 自定义Servlet中的 spring 容器上下文 Servlet WebApplicationContext -->
+            <param-value>org.springframework.web.context.support.XmlWebApplicationContext</param-value>
+        </init-param>
 
         <init-param>
             <param-name>contextConfigLocation</param-name>
